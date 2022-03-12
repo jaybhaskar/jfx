@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Debug">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef-tests.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

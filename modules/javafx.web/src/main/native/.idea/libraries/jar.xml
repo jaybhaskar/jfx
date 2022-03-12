@@ -1,0 +1,26 @@
+<component name="libraryTable">
+  <library name="jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/javafx-swt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/jogl-all-natives-macosx-universal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/jogl-all-natives-linux-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/gluegen-rt-natives-linux-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/gluegen-rt-natives-macosx-universal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/jogl-all-natives-windows-i586.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/gluegen-rt-natives-windows-i586.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/javafx.controls.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/gluegen-rt-natives-windows-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/gluegen-rt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/jogl-all-natives-linux-i586.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/jogl-all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/jogl-all-natives-windows-amd64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/javafx.swing.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/gluegen-rt-natives-linux-i586.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/javafx.media.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/javafx.base.jar!/" />
+      <root url="jar://$PROJECT_DIR$/third_party/jogamp/jar/javafx.graphics.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

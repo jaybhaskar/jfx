@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Java">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef_app.app/Contents/Java/jcef-tests.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef_app.app/Contents/Java/jogl-all-natives-macosx-universal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef_app.app/Contents/Java/junit-platform-console-standalone-1.4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef_app.app/Contents/Java/gluegen-rt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef_app.app/Contents/Java/gluegen-rt-natives-macosx-universal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef_app.app/Contents/Java/jcef.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jcef_build/native/Debug/jcef_app.app/Contents/Java/jogl-all.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

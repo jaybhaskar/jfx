@@ -3503,23 +3503,12 @@ project(":web") {
         File nativeBuildDir = new File("${webkitOutputDir}")
         nativeBuildDir.mkdirs()
 
-        def getICUFile = task("copyICUFile", type: Copy) {
-            enabled = IS_COMPILE_WEBKIT
 
-            from configurations.icu.files
-            into "$webkitOutputDir/$webkitConfig/icu/data"
-        }
-
-        def compileNativeTask = task("compileNative${t.capital}", dependsOn: [compileJava, getICUFile]) {
+        def compileNativeTask = task("compileNative${t.capital}", dependsOn: [compileJava]) {
             println "Building Webkit configuration /$webkitConfig/ into $webkitOutputDir"
             enabled =  (IS_COMPILE_WEBKIT)
 
             doLast {
-                exec {
-                    workingDir("$webkitOutputDir")
-                    commandLine("perl", "$projectDir/src/main/native/Tools/Scripts/set-webkit-configuration", "--$webkitConfig")
-                    environment(["WEBKIT_OUTPUTDIR" : webkitOutputDir])
-                }
 
                 exec {
                     workingDir("$webkitOutputDir")
@@ -3583,9 +3572,7 @@ project(":web") {
                         targetCpuBitDepthSwitch = "--32-bit"
                     }
                     cmakeArgs += " -DJAVAFX_RELEASE_VERSION=${jfxReleaseMajorVersion}"
-                    commandLine("perl", "$projectDir/src/main/native/Tools/Scripts/build-webkit",
-                        "--java", "--icu-unicode", targetCpuBitDepthSwitch,
-                        "--no-experimental-features", "--cmakeargs=${cmakeArgs}")
+                    commandLine("sh", "$projectDir/src/main/native/tools/compile.sh", "macox64")
                 }
             }
         }

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="macox64">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/macox64/jcef.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/macox64/jcef-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
