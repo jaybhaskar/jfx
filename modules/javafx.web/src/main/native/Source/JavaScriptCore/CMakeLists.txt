@@ -168,6 +168,8 @@ set(JavaScriptCore_SCRIPTS_SOURCES_DIR "${JAVASCRIPTCORE_DIR}/Scripts")
 # Globbing relies on the fact that generator-specific file names are prefixed with their directory.
 # Top-level scripts should have a file extension, since they are invoked during the build.
 
+
+
 set(JavaScriptCore_SCRIPTS_SOURCES_PATHS
     ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/*.pl
     ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/*.py
@@ -175,12 +177,21 @@ set(JavaScriptCore_SCRIPTS_SOURCES_PATHS
     ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/wkbuiltins/wkbuiltins.py
 )
 
+message("*****************************************************************************")
+message("******************** ${JavaScriptCore_SCRIPTS_SOURCES_PATHS} *****************")
+message("*****************************************************************************")
+
 # The directory flattening performed below mirrors what the Mac port does with private headers.
 
 file(GLOB JavaScriptCore_SCRIPTS_SOURCES ${JavaScriptCore_SCRIPTS_SOURCES_PATHS})
 
 foreach (_file ${JavaScriptCore_SCRIPTS_SOURCES})
     get_filename_component(_script "${_file}" NAME)
+     message("*******************************working dir ***********************************")
+     message("******************** ${JavaScriptCore_DERIVED_SOURCES_DIR} *****************")
+     message("**********************************file*******************************************")
+     message("**********************************"${_file}"*************************************")
+     message("**********************************file*******************************************")
     add_custom_command(
         OUTPUT ${JavaScriptCore_SCRIPTS_DIR}/${_script}
         MAIN_DEPENDENCY ${_file}
@@ -189,6 +200,9 @@ foreach (_file ${JavaScriptCore_SCRIPTS_SOURCES})
         VERBATIM)
     list(APPEND JavaScriptCore_SCRIPTS ${JavaScriptCore_SCRIPTS_DIR}/${_script})
 endforeach ()
+
+message("**********************************JavaScriptCore_SCRIPTS_DIR}_script************************")
+message("***********************${JavaScriptCore_SCRIPTS_DIR}/${_script}*****file*******************************************")
 
 # This is the default build variant for Xcode builds.
 set(BUILD_VARIANTS
@@ -328,6 +342,11 @@ set(BUILTINS_GENERATOR_SCRIPTS
     ${JavaScriptCore_SCRIPTS_DIR}/lazywriter.py
 )
 
+
+message("**********************************JavaScriptCore_SCRIPTS_DIR************************")
+message("***********************${JavaScriptCore_SCRIPTS_DIR}***************************************")
+
+
 set(JavaScriptCore_BUILTINS_SOURCES
     ${JAVASCRIPTCORE_DIR}/builtins/AsyncFromSyncIteratorPrototype.js
     ${JAVASCRIPTCORE_DIR}/builtins/ArrayConstructor.js
@@ -366,6 +385,8 @@ set(JavaScriptCore_BUILTINS_SOURCES
     ${JAVASCRIPTCORE_DIR}/builtins/WebAssembly.js
 )
 
+message("*************************running generate-js-builtins.py ***********************")
+
 add_custom_command(
     OUTPUT ${JavaScriptCore_DERIVED_SOURCES_DIR}/JSCBuiltins.cpp ${JavaScriptCore_DERIVED_SOURCES_DIR}/JSCBuiltins.h
     MAIN_DEPENDENCY ${JavaScriptCore_SCRIPTS_DIR}/generate-js-builtins.py
@@ -373,6 +394,8 @@ add_custom_command(
     COMMAND ${PYTHON_EXECUTABLE} ${JavaScriptCore_SCRIPTS_DIR}/generate-js-builtins.py --framework JavaScriptCore --output-directory ${JavaScriptCore_DERIVED_SOURCES_DIR} --combined ${JavaScriptCore_BUILTINS_SOURCES}
     VERBATIM)
 add_custom_target(JSCBuiltins DEPENDS "${JavaScriptCore_DERIVED_SOURCES_DIR}/JSCBuiltins.h")
+
+message("*************************end generate-js-builtins.py ***********************")
 
 # We add the header files directly to the ADD_EXECUTABLE call instead of setting the
 # OBJECT_DEPENDS property in LLIntOffsetsExtractor.cpp because generate_offset_extractor.rb and
