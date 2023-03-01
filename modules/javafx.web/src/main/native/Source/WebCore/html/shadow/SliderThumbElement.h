@@ -59,6 +59,7 @@ public:
 private:
     SliderThumbElement(Document&);
     bool isSliderThumbElement() const final { return true; }
+    RenderPtr<RenderElement> createElementRenderer(RenderStyle&&, const RenderTreePosition&) final;
 
     Ref<Element> cloneElementWithoutAttributesAndChildren(Document&) final;
     bool isDisabledFormControl() const final;
@@ -74,6 +75,7 @@ private:
     void willDetachRenderers() final;
 
     std::optional<Style::ElementStyle> resolveCustomStyle(const Style::ResolutionContext&, const RenderStyle*) final;
+    const AtomString& shadowPseudoId() const final;
 
     void startDragging();
     void stopDragging();
@@ -104,6 +106,22 @@ private:
 #endif
 };
 
+inline Ref<SliderThumbElement> SliderThumbElement::create(Document& document)
+{
+    return adoptRef(*new SliderThumbElement(document));
+}
+
+// --------------------------------
+
+class RenderSliderThumb final : public RenderBlockFlow {
+    WTF_MAKE_ISO_ALLOCATED(RenderSliderThumb);
+public:
+    RenderSliderThumb(SliderThumbElement&, RenderStyle&&);
+    void updateAppearance(const RenderStyle* parentStyle);
+
+private:
+    bool isSliderThumb() const final;
+};
 // --------------------------------
 
 class SliderContainerElement final : public HTMLDivElement {
@@ -114,7 +132,11 @@ public:
 private:
     SliderContainerElement(Document&);
     RenderPtr<RenderElement> createElementRenderer(RenderStyle&&, const RenderTreePosition&) final;
+    std::optional<Style::ElementStyle> resolveCustomStyle(const Style::ResolutionContext&, const RenderStyle*) final;
+    const AtomString& shadowPseudoId() const final;
     bool isSliderContainerElement() const final { return true; }
+
+    AtomString m_shadowPseudoId;
 };
 
 } // namespace WebCore

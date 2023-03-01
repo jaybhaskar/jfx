@@ -61,6 +61,9 @@ const AtomString& webkitInnerSpinButton();
 
 const AtomString& webkitListButton();
 
+const AtomString& webkitMediaSliderThumb();
+const AtomString& webkitMediaSliderContainer();
+
 const AtomString& webkitMediaTextTrackContainer();
 
 const AtomString& webkitMediaTextTrackDisplay();
