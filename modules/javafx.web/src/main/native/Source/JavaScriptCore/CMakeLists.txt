@@ -185,7 +185,7 @@ foreach (_file ${JavaScriptCore_SCRIPTS_SOURCES})
         OUTPUT ${JavaScriptCore_SCRIPTS_DIR}/${_script}
         MAIN_DEPENDENCY ${_file}
         WORKING_DIRECTORY ${JavaScriptCore_DERIVED_SOURCES_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_file} ${JavaScriptCore_SCRIPTS_DIR}/${_script}
+        COMMAND ${CMAKE_COMMAND} -E copy ${_file} ${JavaScriptCore_SCRIPTS_DIR}/${_script}
         VERBATIM)
     list(APPEND JavaScriptCore_SCRIPTS ${JavaScriptCore_SCRIPTS_DIR}/${_script})
 endforeach ()

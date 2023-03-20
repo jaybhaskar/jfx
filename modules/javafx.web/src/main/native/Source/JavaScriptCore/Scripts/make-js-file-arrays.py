@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # Copyright (C) 2014 Apple Inc. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
