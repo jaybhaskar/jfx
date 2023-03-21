@@ -27,7 +27,7 @@
 # Workaround for rdar://84212106.
 find_tool = $(realpath $(shell xcrun --sdk $(SDK_NAME) -f $(1)))
 
-PYTHON := $(call find_tool,python3)
+PYTHON := python
 PERL := perl
 RUBY := ruby
 DELETE := rm -f
@@ -147,9 +147,7 @@ JavaScriptCore_BUILTINS_SOURCES = \
 JavaScriptCore_BUILTINS_DEPENDENCIES_LIST : $(JavaScriptCore_SCRIPTS_DIR)/UpdateContents.py DerivedSources.make
 	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/UpdateContents.py '$(JavaScriptCore_BUILTINS_SOURCES) $(BUILTINS_GENERATOR_SCRIPTS)' $@
 
-JSC_BUILTINS_FILES_PATTERNS = $(subst .,%,$(JSC_BUILTINS_FILES))
-
-$(JSC_BUILTINS_FILES_PATTERNS) : $(BUILTINS_GENERATOR_SCRIPTS) $(JavaScriptCore_BUILTINS_SOURCES) JavaScriptCore_BUILTINS_DEPENDENCIES_LIST
+JSCBuiltins.h: $(BUILTINS_GENERATOR_SCRIPTS) $(JavaScriptCore_BUILTINS_SOURCES) JavaScriptCore_BUILTINS_DEPENDENCIES_LIST
 	$(PYTHON) $(JavaScriptCore_SCRIPTS_DIR)/generate-js-builtins.py --combined --output-directory . --framework JavaScriptCore $(JavaScriptCore_BUILTINS_SOURCES)
 
 # Perfect hash lookup tables for JavaScript classes.
