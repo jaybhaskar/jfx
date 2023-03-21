@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-
+set(CMAKE_VERBOSE_MAKEFILE ON)
 include(WebKitCommon)
 include(target/TargetWTF)
 
@@ -181,14 +181,36 @@ file(GLOB JavaScriptCore_SCRIPTS_SOURCES ${JavaScriptCore_SCRIPTS_SOURCES_PATHS}
 
 foreach (_file ${JavaScriptCore_SCRIPTS_SOURCES})
     get_filename_component(_script "${_file}" NAME)
+    #introduce one second delay to prevent any lock
+    execute_process(COMMAND ${CMAKE_COMMAND} -E sleep 1)
     add_custom_command(
         OUTPUT ${JavaScriptCore_SCRIPTS_DIR}/${_script}
         MAIN_DEPENDENCY ${_file}
         WORKING_DIRECTORY ${JavaScriptCore_DERIVED_SOURCES_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy ${_file} ${JavaScriptCore_SCRIPTS_DIR}/${_script}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_file} ${JavaScriptCore_SCRIPTS_DIR}/${_script}
         VERBATIM)
     list(APPEND JavaScriptCore_SCRIPTS ${JavaScriptCore_SCRIPTS_DIR}/${_script})
 endforeach ()
+
+#create an interface library named JavaScriptCore_Scripts,
+#which has the sources added using target_sources(). We also use CMake's -E copy
+#command instead of file(COPY ...) to copy the files, as it is also thread-safe
+
+add_library(JavaScriptCore_Scripts INTERFACE)
+target_sources(JavaScriptCore_Scripts INTERFACE ${JavaScriptCore_SCRIPTS})
+
+
+# Output messages outside of add_custom_command block
+message("********************************************")
+message("********************************************")
+foreach (_file ${JavaScriptCore_SCRIPTS_SOURCES})
+    get_filename_component(_script "${_file}" NAME)
+    message(STATUS "${JavaScriptCore_SCRIPTS_DIR}/${_script}")
+    message(STATUS "${_file}")
+    message(STATUS "${WORKING_DIRECTORY}")
+endforeach ()
+message("********************************************")
+message("********************************************")
 
 # This is the default build variant for Xcode builds.
 set(BUILD_VARIANTS
