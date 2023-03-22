@@ -3,6 +3,7 @@
 # -----------------------------------------------------------------------------
 if (NOT USE_SYSTEM_MALLOC)
     add_subdirectory(bmalloc)
+    set(BMALLOC_TARGET bmalloc)
 endif ()
 
 add_subdirectory(WTF)
@@ -12,6 +13,10 @@ if (USE_CAPSTONE)
 endif ()
 
 add_subdirectory(JavaScriptCore)
+if (DEFINED BMALLOC_TARGET)
+    # If bmalloc was built, add a dependency to make sure JavaScriptCore is built after bmalloc
+    add_dependencies(JavaScriptCore ${BMALLOC_TARGET})
+endif ()
 
 if (ENABLE_WEBGL OR USE_ANGLE_EGL)
     add_subdirectory(ThirdParty/ANGLE)
