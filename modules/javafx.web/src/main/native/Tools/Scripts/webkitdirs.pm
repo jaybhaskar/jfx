@@ -650,7 +650,12 @@ sub determineNumberOfCPUs
         # Assumes cygwin
         $numberOfCPUs = `ls /proc/registry/HKEY_LOCAL_MACHINE/HARDWARE/DESCRIPTION/System/CentralProcessor | wc -w`;
     } elsif (isDarwin() || isBSD()) {
-        chomp($numberOfCPUs = `sysctl -n hw.ncpu`);
+      print "***********fixed number of cpu**************\n";
+      print "***********fixed number of cpu**************\n";
+      $numberOfCPUs = 4;
+      #chomp($numberOfCPUs = `sysctl -n hw.ncpu`);
+      print "***********fixed number of cpu*****  $numberOfCPUs ********\n";
+      print "***********fixed number of cpu******  $numberOfCPUs *******\n";
     } else {
         $numberOfCPUs = 1;
     }
