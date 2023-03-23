@@ -15,9 +15,5 @@ if [ ! "$CC" ]; then
     export CC="`xcrun -find clang`"
 fi
 
-echo "***********************************************************"
-echo "***********************************************************"
-echo "***********************************************************"
-echo "***********************************************************"
-echo "setting ncpu 4 for JavaScriptCore Derived source generation"
-make --no-builtin-rules -f "JavaScriptCore/DerivedSources.make" -j 4 SDKROOT="${SDKROOT}" "${ARGS[@]}"
+make --no-builtin-rules -f "JavaScriptCore/DerivedSources.make" -j `/usr/sbin/sysctl -n hw.ncpu` SDKROOT="${SDKROOT}" "${ARGS[@]}"
+#make --no-builtin-rules -f "JavaScriptCore/DerivedSources.make" -j 4 SDKROOT="${SDKROOT}"

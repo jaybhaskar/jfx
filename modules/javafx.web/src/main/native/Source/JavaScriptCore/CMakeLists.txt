@@ -212,27 +212,6 @@ foreach (_file ${JavaScriptCore_SCRIPTS_SOURCES})
     list(APPEND JavaScriptCore_SCRIPTS ${JavaScriptCore_SCRIPTS_DIR}/${_script})
 endforeach ()
 
-
-#create an interface library named JavaScriptCore_Scripts,
-#which has the sources added using target_sources(). We also use CMake's -E copy
-#command instead of file(COPY ...) to copy the files, as it is also thread-safe
-
-add_library(JavaScriptCore_Scripts INTERFACE)
-target_sources(JavaScriptCore_Scripts INTERFACE ${JavaScriptCore_SCRIPTS})
-
-
-# Output messages outside of add_custom_command block
-message("********************************************")
-message("********************************************")
-foreach (_file ${JavaScriptCore_SCRIPTS_SOURCES})
-    get_filename_component(_script "${_file}" NAME)
-    message(STATUS "${JavaScriptCore_SCRIPTS_DIR}/${_script}")
-    message(STATUS "${_file}")
-    message(STATUS "${WORKING_DIRECTORY}")
-endforeach ()
-message("********************************************")
-message("********************************************")
-
 # This is the default build variant for Xcode builds.
 set(BUILD_VARIANTS
     "normal"
