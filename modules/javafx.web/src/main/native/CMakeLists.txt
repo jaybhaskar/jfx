@@ -12,7 +12,7 @@
 #
 cmake_minimum_required(VERSION 3.12)
 project(WebKit)
-set(CMAKE_VERBOSE_MAKEFILE ON)
+
 # Remove this cmake_policy() after upgrading cmake_minimum_required() to 3.20.
 if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20")
     cmake_policy(SET CMP0116 OLD)
