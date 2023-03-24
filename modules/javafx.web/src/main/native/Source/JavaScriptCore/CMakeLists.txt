@@ -185,7 +185,7 @@ foreach (_file ${JavaScriptCore_SCRIPTS_SOURCES})
     execute_process(COMMAND ${CMAKE_COMMAND} -E sleep 1)
     set(copy_success FALSE)
     set(copy_attempts 0)
-    while(NOT copy_success AND copy_attempts LESS 4)
+    while(NOT copy_success AND copy_attempts LESS 10)
         execute_process(
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${_file} ${JavaScriptCore_SCRIPTS_DIR}/${_script}
             RESULT_VARIABLE copy_result
