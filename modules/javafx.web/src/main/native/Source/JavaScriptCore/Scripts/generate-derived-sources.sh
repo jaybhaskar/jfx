@@ -16,4 +16,3 @@ if [ ! "$CC" ]; then
 fi
 
 make --no-builtin-rules -f "JavaScriptCore/DerivedSources.make" -j `/usr/sbin/sysctl -n hw.ncpu` SDKROOT="${SDKROOT}" "${ARGS[@]}"
-#make --no-builtin-rules -f "JavaScriptCore/DerivedSources.make" -j 8 SDKROOT="${SDKROOT}"
