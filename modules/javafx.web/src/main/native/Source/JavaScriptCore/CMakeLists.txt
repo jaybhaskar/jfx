@@ -1563,6 +1563,9 @@ if (CMAKE_COMPILER_IS_GNUCXX AND GCC_OFFLINEASM_SOURCE_MAP)
             FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE GROUP_READ WORLD_READ
             DESTINATION ${JavaScriptCore_SCRIPTS_DIR}
         )
+        #making resolve-asm-file-conflicts.rb executable using  FILE_PERMISSIONS OWNER_EXECUTE failing on Linux
+        #use explicit command
+        execute_process(COMMAND chmod +x ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/resolve-asm-file-conflicts.rb)
         set(LowLevelInterpreter_LAUNCHER "${RUBY_EXECUTABLE} ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/postprocess-asm")
     else ()
     set(LowLevelInterpreter_LAUNCHER "${RUBY_EXECUTABLE} ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/postprocess-asm")
