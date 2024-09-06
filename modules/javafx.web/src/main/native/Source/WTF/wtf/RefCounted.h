@@ -99,7 +99,7 @@ public:
 protected:
     RefCountedBase()
         : m_refCount(1)
-#if ASSERT_ENABLED
+#if ASSERT_ENABLED && PLATFORM(JAVA) && !OS(UNIX)
         , m_isOwnedByMainThread(isMainThread())
 #endif
     {
@@ -107,7 +107,7 @@ protected:
 
     void applyRefDerefThreadingCheck() const
     {
-#if ASSERT_ENABLED
+#if ASSERT_ENABLED && PLATFORM(JAVA) && !OS(UNIX)
         if (m_refCount == 1) {
             // Likely an ownership transfer across threads that may be safe.
             m_isOwnedByMainThread = isMainThread();

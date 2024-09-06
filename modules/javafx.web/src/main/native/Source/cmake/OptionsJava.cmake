@@ -146,11 +146,9 @@ set(WebCore_LIBRARY_TYPE STATIC)
 set(WebCoreTestSupport_LIBRARY_TYPE STATIC)
 set(PAL_LIBRARY_TYPE STATIC)
 
-#JAVA 32 bit window platform
+#JAVA window platform
 if (WIN32)
-    if (${WTF_CPU_X86})
-        set(WebCore_LIBRARY_TYPE OBJECT)
-    endif ()
+    set(WebCore_LIBRARY_TYPE OBJECT)
 endif ()
 
 
