@@ -1570,7 +1570,19 @@ if (CMAKE_COMPILER_IS_GNUCXX AND GCC_OFFLINEASM_SOURCE_MAP)
             FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE GROUP_READ WORLD_READ
             DESTINATION ${JavaScriptCore_DERIVED_SOURCES_DIR}
         )
-        execute_process(COMMAND chmod 764 ${JavaScriptCore_DERIVED_SOURCES_DIR}/resolve-asm-file-conflicts.rb)
+        execute_process(
+            COMMAND chmod 764 ${JavaScriptCore_DERIVED_SOURCES_DIR}/resolve-asm-file-conflicts.rb
+            OUTPUT_VARIABLE chmod_output
+            ERROR_VARIABLE chmod_error
+            RESULT_VARIABLE chmod_result
+            VERBATIM
+        )
+
+        if(NOT chmod_result EQUAL 0)
+            message(FATAL_ERROR "chmod failed with exit code ${chmod_result}. Error: ${chmod_error}")
+        else()
+            message(STATUS "chmod succeeded. Output: ${chmod_output}")
+        endif()
         set(LowLevelInterpreter_LAUNCHER "${RUBY_EXECUTABLE} ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/postprocess-asm")
     else ()
     set(LowLevelInterpreter_LAUNCHER "${RUBY_EXECUTABLE} ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/postprocess-asm")
