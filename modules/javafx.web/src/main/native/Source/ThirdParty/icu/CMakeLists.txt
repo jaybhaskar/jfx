@@ -603,7 +603,9 @@ add_custom_command(
 
 if (MSVC)
     # On Windows, data_as_asm could generates .obj file directly.
+    file(TO_CMAKE_PATH "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}_dat.obj" ICU_DATA_SYMBOL_FILE)
     set(ICU_DATA_SYMBOL_FILE "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}_dat.obj")
+    message(STATUS "ICU_DATA_SYMBOL_FILE path: ${ICU_DATA_SYMBOL_FILE}")
     set_source_files_properties(${ICU_DATA_SYMBOL_FILE} PROPERTIES EXTERNAL_OBJECT TRUE GENERATED TRUE)
 else ()
     set(ICU_DATA_SYMBOL_FILE "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}_dat.S")
