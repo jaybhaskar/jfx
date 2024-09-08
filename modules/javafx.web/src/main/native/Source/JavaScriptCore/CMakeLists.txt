@@ -1575,7 +1575,6 @@ if (CMAKE_COMPILER_IS_GNUCXX AND GCC_OFFLINEASM_SOURCE_MAP)
             OUTPUT_VARIABLE chmod_output
             ERROR_VARIABLE chmod_error
             RESULT_VARIABLE chmod_result
-            VERBATIM
         )
 
         if(NOT chmod_result EQUAL 0)
