@@ -1568,10 +1568,10 @@ if (CMAKE_COMPILER_IS_GNUCXX AND GCC_OFFLINEASM_SOURCE_MAP)
         file(
             COPY ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/postprocess-asm ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/resolve-asm-file-conflicts.rb
             FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_WRITE GROUP_READ WORLD_READ
-            DESTINATION ${JavaScriptCore_DERIVED_SOURCES_DIR}
+            DESTINATION ${JavaScriptCore_SCRIPTS_SOURCES_DIR}
         )
         execute_process(
-            COMMAND chmod 764 ${JavaScriptCore_DERIVED_SOURCES_DIR}/resolve-asm-file-conflicts.rb
+            COMMAND chmod 764 ${JavaScriptCore_SCRIPTS_SOURCES_DIR}/resolve-asm-file-conflicts.rb
             OUTPUT_VARIABLE chmod_output
             ERROR_VARIABLE chmod_error
             RESULT_VARIABLE chmod_result
