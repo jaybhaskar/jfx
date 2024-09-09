@@ -626,6 +626,7 @@ else ()
 endif ()
 
 add_custom_command(
+    COMMAND ${CMAKE_COMMAND} -E echo "Running data_as_asm with: $<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} ${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat ${CMAKE_BINARY_DIR}/icu/data ${ICU_DATA_ENTRY_POINT}"
     COMMAND $<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat" ${CMAKE_BINARY_DIR}/icu/data ${ICU_DATA_ENTRY_POINT}
     OUTPUT ${ICU_DATA_SYMBOL_FILE}
     DEPENDS "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat"
