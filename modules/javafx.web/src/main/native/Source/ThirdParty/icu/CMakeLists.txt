@@ -625,7 +625,6 @@ endif ()
 
 file(TO_CMAKE_PATH "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat" ICU_DATA_FILE_PATH)
 file(TO_CMAKE_PATH "${CMAKE_BINARY_DIR}/icu/data" ICU_DATA_DIR)
-configure_file(${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat  ${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat @ONLY NEWLINE_STYLE LF)
 
 add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E echo  "$<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} ${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat ${CMAKE_BINARY_DIR}/icu/data ${ICU_DATA_ENTRY_POINT}"
