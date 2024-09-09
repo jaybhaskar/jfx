@@ -623,11 +623,17 @@ else ()
     set(ICU_DATA_ASSEMBLER_TYPE masm)
 endif ()
 
-file(TO_CMAKE_PATH "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat" ICU_DATA_FILE_PATH)
-file(TO_CMAKE_PATH "${CMAKE_BINARY_DIR}/icu/data" ICU_DATA_DIR)
+set(ICU_DATA_FILE_PATH "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat")
+
+if(EXISTS "${ICU_DATA_FILE_PATH}")
+    message(STATUS "File ${ICU_DATA_FILE_PATH} exists.")
+    # Add your logic here for when the file exists
+else()
+    message(STATUS "File ${ICU_DATA_FILE_PATH} does not exist.")
+    # Add your logic here for when the file does not exist
+endif()
 
 add_custom_command(
-    COMMAND ${CMAKE_COMMAND} -E echo  "$<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} ${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat ${CMAKE_BINARY_DIR}/icu/data ${ICU_DATA_ENTRY_POINT}"
     COMMAND $<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat" ${CMAKE_BINARY_DIR}/icu/data ${ICU_DATA_ENTRY_POINT}
     OUTPUT ${ICU_DATA_SYMBOL_FILE}
     DEPENDS "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat"
