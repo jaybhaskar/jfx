@@ -599,7 +599,11 @@ add_custom_command(
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/icu/data"
     OUTPUT "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat"
     VERBATIM
+    COMMAND_ECHO STDOUT
+    COMMAND ls -l "${CMAKE_BINARY_DIR}/icu/data"
+    COMMENT "Extracting ${ICU_DATA_FILE_NAME}.dat and listing contents"
 )
+
 
 if (MSVC)
     # On Windows, data_as_asm could generates .obj file directly.
