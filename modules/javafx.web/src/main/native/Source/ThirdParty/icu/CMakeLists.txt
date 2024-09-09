@@ -603,9 +603,6 @@ add_custom_command(
 
 if (MSVC)
     # On Windows, data_as_asm could generates .obj file directly.
-    file(TO_CMAKE_PATH "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}_dat.obj" ICU_DATA_SYMBOL_FILE)
-    set(ICU_DATA_SYMBOL_FILE "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}_dat.obj")
-    message(STATUS "ICU_DATA_SYMBOL_FILE path: ${ICU_DATA_SYMBOL_FILE}")
     set_source_files_properties(${ICU_DATA_SYMBOL_FILE} PROPERTIES EXTERNAL_OBJECT TRUE GENERATED TRUE)
 else ()
     set(ICU_DATA_SYMBOL_FILE "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}_dat.S")
@@ -625,11 +622,16 @@ else ()
     set(ICU_DATA_ASSEMBLER_TYPE masm)
 endif ()
 
+# Convert paths to Unix-style
+file(TO_CMAKE_PATH "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat" ICU_DATA_FILE_PATH)
+file(TO_CMAKE_PATH "${CMAKE_BINARY_DIR}/icu/data" ICU_DATA_DIR)
+
+# Add custom command with Unix-style paths
 add_custom_command(
-    COMMAND ${CMAKE_COMMAND} -E echo "Running data_as_asm with: $<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} ${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat ${CMAKE_BINARY_DIR}/icu/data ${ICU_DATA_ENTRY_POINT}"
-    COMMAND $<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat" ${CMAKE_BINARY_DIR}/icu/data ${ICU_DATA_ENTRY_POINT}
+    COMMAND ${CMAKE_COMMAND} -E echo "Running data_as_asm with: $<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} ${ICU_DATA_FILE_PATH} ${ICU_DATA_DIR} ${ICU_DATA_ENTRY_POINT}"
+    COMMAND $<TARGET_FILE:data_as_asm> ${ICU_DATA_ASSEMBLER_TYPE} "${ICU_DATA_FILE_PATH}" ${ICU_DATA_DIR} ${ICU_DATA_ENTRY_POINT}
     OUTPUT ${ICU_DATA_SYMBOL_FILE}
-    DEPENDS "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}.dat"
+    DEPENDS "${ICU_DATA_FILE_PATH}"
     VERBATIM
 )
 
