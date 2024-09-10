@@ -609,6 +609,14 @@ if (MSVC)
     # On Windows, data_as_asm could generates .obj file directly.
     set(ICU_DATA_SYMBOL_FILE "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}_dat.obj")
     set_source_files_properties(${ICU_DATA_SYMBOL_FILE} PROPERTIES EXTERNAL_OBJECT TRUE GENERATED TRUE)
+    # Convert the Windows path to a Unix-style path for Cygwin
+    if(CYGWIN)
+        execute_process(
+            COMMAND cygpath -u "${ICU_DATA_SYMBOL_FILE}"
+            OUTPUT_VARIABLE ICU_DATA_SYMBOL_FILE
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+    endif()
 else ()
     set(ICU_DATA_SYMBOL_FILE "${CMAKE_BINARY_DIR}/icu/data/${ICU_DATA_FILE_NAME}_dat.S")
     enable_language(ASM)
