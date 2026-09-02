@@ -1392,6 +1392,10 @@ void TextureMapper::bindDefaultSurface()
 
 void TextureMapper::bindSurface(BitmapTexture *surface)
 {
+#if PLATFORM(JAVA)
+    UNUSED_PARAM(surface);
+    return;
+#else
     if (!surface) {
         bindDefaultSurface();
         return;
@@ -1400,6 +1404,7 @@ void TextureMapper::bindSurface(BitmapTexture *surface)
     surface->bindAsSurface();
     data().currentSurface = surface;
     updateProjectionMatrix();
+#endif
 }
 
 BitmapTexture* TextureMapper::currentSurface()
@@ -1633,7 +1638,11 @@ void TextureMapper::setDepthRange(double zNear, double zFar)
 
 std::pair<double, double> TextureMapper::depthRange() const
 {
+#if PLATFORM(JAVA)
+    return { 0, 0 };
+#else
     return { data().zNear, data().zFar };
+#endif
 }
 
 void TextureMapper::updateProjectionMatrix()
