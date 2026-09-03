@@ -47,8 +47,10 @@ Ref<Font> FontCache::lastResortFallbackFont(const FontDescription& fontDescripti
 {
     // We want to return a fallback font here, otherwise the logic preventing FontConfig
     // matches for non-fallback fonts might return 0. See isFallbackFontAllowed.
-    static AtomString timesStr("serif"_s);
-    return *fontForFamily(fontDescription, timesStr);
+    // Atom strings are owned by the atom table of the thread on which they
+    // are created. This method can be called from the TextureMapper thread,
+    // so do not retain an atom created on another thread here.
+    return *fontForFamily(fontDescription, "serif"_s);
 }
 
 Vector<String> FontCache::systemFontFamilies()
@@ -87,4 +89,3 @@ RefPtr<Font> FontCache::systemFallbackForCharacterCluster(const FontDescription&
     return nullptr;
 }
 }
-
