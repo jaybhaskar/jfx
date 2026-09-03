@@ -24,6 +24,7 @@
 #include "config.h"
 #include <wtf/text/AtomStringImpl.h>
 
+#include <wtf/DataLog.h>
 #include <wtf/Threading.h>
 #include <wtf/text/AtomStringTable.h>
 #include <wtf/text/StringHash.h>
@@ -454,6 +455,23 @@ void AtomStringImpl::remove(AtomStringImpl* string)
     AtomStringTableLocker locker;
     auto& atomStringTable = stringTable();
     auto iterator = atomStringTable.find<AtomStringTableRemovalHashTranslator>(string);
+    if (iterator == atomStringTable.end()) {
+        if (string->is8Bit()) {
+            dataLogF("Cross-thread atom: string=%p value=\"%.*s\" length=%u thread=%u\n",
+                static_cast<void*>(string),
+                static_cast<int>(string->length()),
+                reinterpret_cast<const char*>(string->span8().data()),
+                string->length(),
+                Thread::currentSingleton().uid());
+        } else {
+            dataLogF("Cross-thread atom: string=%p length=%u thread=%u (16-bit)\n",
+                static_cast<void*>(string),
+                string->length(),
+                Thread::currentSingleton().uid());
+        }
+        CRASH();
+    }
+
     ASSERT_WITH_MESSAGE(iterator != atomStringTable.end(), "The string being removed is an atom in the string table of an other thread!");
     ASSERT(string == iterator->get());
     atomStringTable.remove(iterator);
