@@ -1673,12 +1673,21 @@ void TextureMapper::drawTextureExternalOES(GLuint texture, OptionSet<TextureMapp
 
 Ref<TextureMapperGPUBuffer> TextureMapper::acquireBufferFromPool(size_t size, TextureMapperGPUBuffer::Type type)
 {
+#if PLATFORM(JAVA)
+    // The Java port does not have a GL buffer upload path. Callers still use
+    // the CPU-side clip vertices, while the zero buffer ID is never consumed
+    // by the Java clipping implementation.
+    UNUSED_PARAM(size);
+    static auto buffer = TextureMapperGPUBuffer::create(0, type, TextureMapperGPUBuffer::Usage::Dynamic);
+    return buffer;
+#else
     size_t ceil = roundUpToPowerOfTwo(size);
     size_t floor = ceil >> 1; // half of ceil
     size_t mid = floor + (floor >> 1); // (1.5 times floor)
     size_t requestSize = (size <= mid) ? mid : ceil;
 
     return data().getBufferFromPool(requestSize, type);
+#endif
 }
 
 } // namespace WebCore

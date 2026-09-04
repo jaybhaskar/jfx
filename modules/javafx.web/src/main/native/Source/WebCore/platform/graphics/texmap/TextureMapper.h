@@ -155,7 +155,7 @@ private:
     WrapMode m_wrapMode { WrapMode::Stretch };
     std::optional<FloatSize> m_uvClampMax;
     std::optional<FloatSize> m_uvClampTexelSize;
-    TextureMapperGLData* m_data;
+    TextureMapperGLData* m_data { nullptr };
     ClipStack m_clipStack;
 #if ENABLE(DAMAGE_TRACKING)
     std::optional<Damage> m_damage;
